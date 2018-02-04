@@ -1,11 +1,15 @@
 package file
 
-import "envd/src"
+import "envd/src/drivers"
 
-type FileDriver struct {
-	src.Driver
+type FileDriverInstance struct {
+
 }
 
-//func New(core src.Core, config map[string]interface{}) FileDriver {
-//	return nil
-//}
+func NewDriver() drivers.Driver {
+	return FileDriverInstance{}
+}
+
+func (driver FileDriverInstance) Get(key string, def interface{}) interface{} {
+	return def
+}
