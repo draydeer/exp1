@@ -1,4 +1,4 @@
-package core
+package src
 
 import (
 	"envd/src/drivers"
@@ -15,14 +15,14 @@ type CoreInstance struct {
 	router.Router
 }
 
-func (coreInstance CoreInstance) GetDriver(key string) *drivers.DriverInstance {
-	return coreInstance.DriverManager.GetDriver(key)
+func (core CoreInstance) GetDriver(key string) *drivers.DriverInstance {
+	return core.DriverManager.GetDriver(key)
 }
 
-func (coreInstance CoreInstance) GetValue(key string, def interface{}) interface{} {
+func (core CoreInstance) GetValue(key string, def interface{}) interface{} {
 	return def
 }
 
-func New() Core {
+func NewCore() Core {
 	return CoreInstance{}
 }

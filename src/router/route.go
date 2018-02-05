@@ -5,9 +5,11 @@ type Route interface {
 }
 
 type RouteMatchByPrefixInstance struct {
-	pattern string
+	driver string
+	prefix string
 }
 
 type RouteMatchByRegexpInstance struct {
-	pattern string
+	driver string
+	regexp string
 }

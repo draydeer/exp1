@@ -9,8 +9,8 @@ type RouterInstance struct {
 	routes []Route
 }
 
-func (router RouterInstance) AddMatchByPrefix(pattern string) Router {
-	append(router.routes, RouteMatchByPrefixInstance{pattern})
+func (router RouterInstance) AddMatchByPrefix(prefix string) Router {
+	router.routes = append(router.routes, RouteMatchByPrefixInstance{prefix})
 
 	return router
 }

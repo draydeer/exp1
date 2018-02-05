@@ -8,6 +8,6 @@ type DriverInstance struct {
 
 }
 
-func (driverOptions DriverInstance) Get(key string, def interface{}) interface{} {
+func (driver DriverInstance) Get(key string, def interface{}) interface{} {
 	return def
 }
