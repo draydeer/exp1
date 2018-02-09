@@ -1,13 +1,10 @@
 package drivers
 
 type Driver interface {
-	Get(key string, def interface{}) interface{}
+	GetValue(key string) (interface{}, bool)
+	HasValue(key string) bool
 }
 
 type DriverInstance struct {
 
-}
-
-func (driver DriverInstance) Get(key string, def interface{}) interface{} {
-	return def
 }

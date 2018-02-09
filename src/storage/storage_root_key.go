@@ -1,22 +1,30 @@
 package storage
 
-import "time"
+import (
+	"time"
+	"envd/src/ads"
+)
 
 type StorageRootKey interface {
-	Set(val interface{}) StorageRootKey
+	Get(key string, def interface{}) interface{}
+	Update(val ads.AdsNode) StorageRootKey
 }
 
 type StorageRootKeyInstance struct {
 	createdAt int64
 	key string
 	selectCount uint64
-	val interface{}
+	val ads.AdsNode
 	version uint64
 	updateCount uint64
 	updatedAt int64
 }
 
-func (storageRootKey StorageRootKeyInstance) Set(val interface{}) StorageRootKey {
+func (storageRootKey StorageRootKeyInstance) Get(key string, def interface{}) interface{} {
+	return ads.Get(storageRootKey.val, key, def)
+}
+
+func (storageRootKey StorageRootKeyInstance) Update(val ads.AdsNode) StorageRootKey {
 	storageRootKey.val = val
 	storageRootKey.updateCount += 1
 	storageRootKey.updatedAt = time.Now().UnixNano()
@@ -24,7 +32,7 @@ func (storageRootKey StorageRootKeyInstance) Set(val interface{}) StorageRootKey
 	return storageRootKey
 }
 
-func NewStorageRootKey(key string, val interface{}) StorageRootKey {
+func NewStorageRootKey(key string, val ads.AdsNode) StorageRootKey {
 	var storageRootKey = StorageRootKeyInstance{
 		createdAt: time.Now().UnixNano(),
 		key: key,
