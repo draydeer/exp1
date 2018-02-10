@@ -28,7 +28,7 @@ func (router *RouterInstance) AddMatchByRegexp(driver drivers.Driver, regexp str
 	router.routes = append(router.routes, RouteMatchByRegexpInstance{
 		RouteInstance{driver},
 		regexp,
-		})
+	})
 
 	return router
 }
@@ -37,17 +37,17 @@ func (router *RouterInstance) AddMatchByTrimmedPrefix(driver drivers.Driver, pre
 	router.routes = append(router.routes, RouteMatchByTrimmedPrefixInstance{
 		RouteInstance{driver},
 		prefix,
-		})
+	})
 
 	return router
 }
 
 func (router *RouterInstance) Test(key string) (Route, string, bool) {
 	for _, route := range router.routes {
-		var significantPart, isMatch = route.Test(key)
+		var significantKey, isMatch = route.Test(key)
 
 		if isMatch {
-			return route, significantPart, true
+			return route, significantKey, true
 		}
 	}
 

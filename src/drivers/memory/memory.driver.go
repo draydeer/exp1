@@ -4,17 +4,17 @@ type MemoryDriverInstance struct {
 	keys map[string]interface{}
 }
 
-func (driver *MemoryDriverInstance) GetValue(key string) (interface{}, bool) {
-	var v, present = driver.keys[key]
+func (driver *MemoryDriverInstance) GetKey(key string) (interface{}, bool) {
+	var _, present = driver.keys[key]
 
 	if present {
-		return v, true
+		return driver.keys, true
 	}
 
 	return nil, false
 }
 
-func (driver *MemoryDriverInstance) HasValue(key string) bool {
+func (driver *MemoryDriverInstance) HasKey(key string) bool {
 	var _, present = driver.keys[key]
 
 	return present
@@ -22,4 +22,8 @@ func (driver *MemoryDriverInstance) HasValue(key string) bool {
 
 func NewMemoryDriver() MemoryDriverInstance {
 	return MemoryDriverInstance{}
+}
+
+func NewMemoryDriverWithKeys(keys map[string]interface{}) MemoryDriverInstance {
+	return MemoryDriverInstance{keys}
 }

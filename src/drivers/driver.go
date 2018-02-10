@@ -1,8 +1,8 @@
 package drivers
 
 type Driver interface {
-	GetValue(key string) (interface{}, bool)
-	HasValue(key string) bool
+	GetKey(key string) (interface{}, bool)
+	HasKey(key string) bool
 }
 
 type DriverInstance struct {
