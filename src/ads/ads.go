@@ -158,12 +158,36 @@ func Create(val interface{}) AdsNode {
 	return AdsPrimitive{val}
 }
 
-func Get(ads AdsNode, key string, def interface{}) interface{} {
+func GetKey(ads AdsNode, key string, def interface{}) interface{} {
 	if ! ads.IsIterable() {
 		return def
 	}
 
 	for _, v := range strings.Split(key, ".") {
+		if len(v) == 0 {
+			return def
+		}
+
+		var val, isPresent = ads.GetIndex(v)
+
+		if isPresent {
+			ads = val.(AdsNode)
+		} else {
+			return def
+		}
+	}
+
+	var val = ads.GetValue()
+
+	return val
+}
+
+func GetPath(ads AdsNode, path []string, def interface{}) interface{} {
+	if ! ads.IsIterable() {
+		return def
+	}
+
+	for _, v := range path {
 		if len(v) == 0 {
 			return def
 		}

@@ -4,20 +4,19 @@ import (
 	"envd/src/drivers"
 	"envd/src/router"
 	"envd/src/cache"
-	"strings"
 )
 
 type Core interface {
-	GetCache() cache.Cache
+	GetCache() cache.LocalCache
 	GetDriver(key string) drivers.Driver
 	GetDriverManager() drivers.DriverManager
+	GetKey(key string, def interface{}) interface{}
+	GetKeyOrNil(key string) interface{}
 	GetRouter() router.Router
-	GetValue(key string, def interface{}) interface{}
-	GetValueOrNil(key string) interface{}
 }
 
 type CoreInstance struct {
-	cache.Cache
+	cache.LocalCache
 	drivers.DriverManager
 	router.Router
 }
@@ -30,45 +29,45 @@ func (core *CoreInstance) GetDriverManager() drivers.DriverManager {
 	return core.DriverManager
 }
 
-func (core *CoreInstance) GetRouter() router.Router {
-	return core.Router
-}
-
-func (core *CoreInstance) GetCache() cache.Cache {
-	return core.Cache
-}
-
-func (core *CoreInstance) GetValue(key string, def interface{}) interface{} {
+func (core *CoreInstance) GetKey(key string, def interface{}) interface{} {
 	var route, significantKey, isMatch = core.GetRouter().Test(key)
 
 	if isMatch {
-		var keys = strings.Split(significantKey, ".")
-		var sValue, sIsPresent = core.GetCache().GetKey(keys[0])
+		var kd = route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
+		var sValue, sIsPresent = core.GetCache().GetKey(kd.RootKey)
 
 		if ! sIsPresent {
-			var dValue, dIsPresent = route.GetDriver().GetKey(keys[0])
+			var dValue, dIsPresent = route.GetDriver().GetKey(kd.RootKey)
 
 			if ! dIsPresent {
 				return def
 			}
 
-			sValue, sIsPresent = core.Cache.SetKeyFromRaw(keys[0], dValue).GetKey(keys[0])
+			sValue, sIsPresent = core.LocalCache.SetKeyFromRaw(kd.RootKey, dValue).GetKey(kd.RootKey)
 		}
 
-		return sValue.Get(significantKey, def)
+		return sValue.GetPath(kd.PathKey, def)
 	}
 
 	return def
 }
 
-func (core *CoreInstance) GetValueOrNil(key string) interface{} {
-	return core.GetValue(key, nil)
+func (core *CoreInstance) GetKeyOrNil(key string) interface{} {
+	return core.GetKey(key, nil)
+}
+
+func (core *CoreInstance) GetRouter() router.Router {
+	return core.Router
+}
+
+func (core *CoreInstance) GetCache() cache.LocalCache {
+	return core.LocalCache
 }
 
 func NewCore(
 	driverManager drivers.DriverManager,
 	router router.Router,
-	cache cache.Cache,
+	cache cache.LocalCache,
 ) CoreInstance {
 	return CoreInstance{
 		cache,

@@ -7,6 +7,9 @@ import (
 	"envd/src/router"
 	"envd/src/cache"
 	"envd/src"
+	"envd/src/lib"
+	"fmt"
+	//"strings"
 )
 
 func BenchmarkSelfConcatOperator1000(b *testing.B) {
@@ -25,7 +28,13 @@ func BenchmarkSelfConcatOperator1000(b *testing.B) {
 
 	core.GetRouter().AddMatchByTrimmedPrefix(&s1, "memory.")
 
+	var splitter = lib.SplitKeyFn(".")
+	var str = "aaasdf.bf.asdf.casd.fasd.dfasdf.eas.ffadsfa.sdf.gasdf.hfasfa.sdfadsf"
+
+	fmt.Print(splitter(str))
+
 	for n := 0; n < b.N; n++ {
-		core.GetValue("memory.a.b", 0)
+		core.GetKey("memory.a.b", 0)
+		//splitter(str)
 	}
 }
