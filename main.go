@@ -28,8 +28,8 @@ func main() {
 
 	fmt.Println("map:", core)
 
-	fmt.Println("k1:", core.GetKey("memory.a.c.2.4", 0))
-	fmt.Println("k2:", core.GetKey("memory.a.b", 0))
+	fmt.Println(core.GetKey("memory.a.c.2.4", 0))
+	fmt.Println(core.GetKey("memory.a.b", 0))
 
 	var t = ads.NewAdsMap(map[string]interface{}{"a": map[string]interface{}{"b": 2, "c": []interface{}{1,2,3}}})
 
