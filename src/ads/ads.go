@@ -159,6 +159,10 @@ func Create(val interface{}) AdsNode {
 }
 
 func GetKey(ads AdsNode, key string, def interface{}) interface{} {
+	if ads == nil {
+		panic("ads is nil")
+	}
+
 	if ! ads.IsIterable() {
 		return def
 	}
@@ -183,6 +187,10 @@ func GetKey(ads AdsNode, key string, def interface{}) interface{} {
 }
 
 func GetPath(ads AdsNode, path []string, def interface{}) interface{} {
+	if ads == nil {
+		panic("ads is nil")
+	}
+
 	if ! ads.IsIterable() {
 		return def
 	}

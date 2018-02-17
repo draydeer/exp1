@@ -5,7 +5,7 @@ import "envd/src/drivers"
 var noDriverKeyInfo = drivers.DriverKeyDescriptorInstance{}
 
 type NullDriverInstance struct {
-	keys map[string]interface{}
+	drivers.DriverInstance
 }
 
 func (driver *NullDriverInstance) GetKey(key string) (interface{}, bool) {
@@ -20,6 +20,6 @@ func (driver *NullDriverInstance) HasKey(key string) bool {
 	return false
 }
 
-func NewNullDriver() NullDriverInstance {
-	return NullDriverInstance{}
+func NewNullDriver() *NullDriverInstance {
+	return &NullDriverInstance{}
 }

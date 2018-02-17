@@ -8,14 +8,15 @@ import (
 var split = lib.SplitKeyFn(".")
 
 type MemoryDriverInstance struct {
-	keys map[string]interface{}
+	drivers.DriverInstance
+	Keys map[string]interface{}
 }
 
 func (driver *MemoryDriverInstance) GetKey(key string) (interface{}, bool) {
-	var _, present = driver.keys[key]
+	var _, isPresent = driver.Keys[key]
 
-	if present {
-		return driver.keys, true
+	if isPresent {
+		return driver.Keys, true
 	}
 
 	return nil, false
@@ -31,15 +32,15 @@ func (driver *MemoryDriverInstance) GetKeyDescriptorFromUniversal(key string) dr
 }
 
 func (driver *MemoryDriverInstance) HasKey(key string) bool {
-	var _, present = driver.keys[key]
+	var _, isPresent = driver.Keys[key]
 
-	return present
+	return isPresent
 }
 
-func NewMemoryDriver() MemoryDriverInstance {
-	return MemoryDriverInstance{}
+func NewMemoryDriver() *MemoryDriverInstance {
+	return &MemoryDriverInstance{}
 }
 
-func NewMemoryDriverWithKeys(keys map[string]interface{}) MemoryDriverInstance {
-	return MemoryDriverInstance{keys}
+func NewMemoryDriverWithKeys(keys map[string]interface{}) *MemoryDriverInstance {
+	return &MemoryDriverInstance{Keys: keys}
 }

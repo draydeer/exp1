@@ -4,8 +4,8 @@ import (
 	"testing"
 	"envd/src/drivers/memory"
 	"envd/src/drivers"
-	"envd/src/router"
-	"envd/src/cache"
+	"envd/src/routes"
+	"envd/src/local_cache"
 	"envd/src"
 	"envd/src/lib"
 	"fmt"
@@ -21,8 +21,8 @@ func BenchmarkSelfConcatOperator1000(b *testing.B) {
 	})
 
 	var newd = drivers.NewDriverManager()
-	var newr = router.NewRouter()
-	var news = cache.NewCache()
+	var newr = routes.NewRouter()
+	var news = local_cache.NewCache()
 
 	var core = src.NewCore(&newd, &newr, &news)
 

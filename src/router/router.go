@@ -1,59 +1,77 @@
 package router
 
-import "envd/src/drivers"
+import (
+	"envd/src/drivers"
+	"envd/src/routes"
+	"envd/src/routes/entire"
+	"envd/src/routes/prefix"
+	"envd/src/routes/regexp"
+	"envd/src/routes/trimmed_prefix"
+)
 
-var noRoute = RouteInstance{}
+var noRoute = routes.RouteInstance{}
+var noString = ""
 
 type Router interface {
-	AddMatchByPrefix(driver drivers.Driver, pattern string) Router
-	AddMatchByRegexp(driver drivers.Driver, pattern string) Router
-	AddMatchByTrimmedPrefix(driver drivers.Driver, pattern string) Router
-	Test(key string) (Route, string, bool)
+	AddEntireMatch(driver drivers.Driver, pattern string) Router
+	AddPrefixMatch(driver drivers.Driver, pattern string) Router
+	AddRegexpMatch(driver drivers.Driver, pattern string) Router
+	AddTrimmedPrefixMatch(driver drivers.Driver, pattern string) Router
+	Test(key string) (routes.Route, string, string, bool)
 }
 
 type RouterInstance struct {
-	routes []Route
+	routes []routes.Route
 }
 
-func (router *RouterInstance) AddMatchByPrefix(driver drivers.Driver, prefix string) Router {
-	router.routes = append(router.routes, RouteMatchByPrefixInstance{
-		RouteInstance{driver},
-		prefix,
+func (router *RouterInstance) AddEntireMatch(driver drivers.Driver, entireMatch string) Router {
+	router.routes = append(router.routes, entire.EntireRouteInstance{
+		routes.RouteInstance{driver},
+		entireMatch,
 	})
 
 	return router
 }
 
-func (router *RouterInstance) AddMatchByRegexp(driver drivers.Driver, regexp string) Router {
-	router.routes = append(router.routes, RouteMatchByRegexpInstance{
-		RouteInstance{driver},
-		regexp,
+func (router *RouterInstance) AddPrefixMatch(driver drivers.Driver, prefixMatch string) Router {
+	router.routes = append(router.routes, prefix.PrefixRouteInstance{
+		routes.RouteInstance{driver},
+		prefixMatch,
 	})
 
 	return router
 }
 
-func (router *RouterInstance) AddMatchByTrimmedPrefix(driver drivers.Driver, prefix string) Router {
-	router.routes = append(router.routes, RouteMatchByTrimmedPrefixInstance{
-		RouteInstance{driver},
-		prefix,
+func (router *RouterInstance) AddRegexpMatch(driver drivers.Driver, regexpMatch string) Router {
+	router.routes = append(router.routes, regexp.RegexpRouteInstance{
+		routes.RouteInstance{driver},
+		regexpMatch,
 	})
 
 	return router
 }
 
-func (router *RouterInstance) Test(key string) (Route, string, bool) {
+func (router *RouterInstance) AddTrimmedPrefixMatch(driver drivers.Driver, trimmedPrefixMatch string) Router {
+	router.routes = append(router.routes, trimmed_prefix.TrimmedPrefixRouteInstance{
+		routes.RouteInstance{driver},
+		trimmedPrefixMatch,
+	})
+
+	return router
+}
+
+func (router *RouterInstance) Test(key string) (routes.Route, string, string, bool) {
 	for _, route := range router.routes {
-		var significantKey, isMatch = route.Test(key)
+		significantKey, prefix, isMatch := route.Test(key)
 
 		if isMatch {
-			return route, significantKey, true
+			return route, significantKey, prefix, true
 		}
 	}
 
-	return noRoute, noString, false
+	return noRoute, noString, noString, false
 }
 
 func NewRouter() RouterInstance {
-	return RouterInstance{make([]Route, 0)}
+	return RouterInstance{make([]routes.Route, 0)}
 }
