@@ -32,17 +32,17 @@ func main() {
 
 	var core = core.NewCore(&newd, &newr, &news)
 
-	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory.")
-	core.GetRouter().AddTrimmedPrefixMatch(s2, "consul.")
-	core.GetRouter().AddTrimmedPrefixMatch(s3, "env.")
+	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory ")
+	core.GetRouter().AddTrimmedPrefixMatch(s2, "consul ")
+	core.GetRouter().AddTrimmedPrefixMatch(s3, "env ")
 
 	fmt.Println("map:", core)
 
-	fmt.Println(core.GetKey("memory.a.c.2.4", 0))
-	fmt.Println(core.GetKey("memory.a.b", 0))
-	fmt.Println(core.GetKey("memory.a\\.a.c", 0))
-	fmt.Println(core.GetKey("consul.test.x", 0))
-	fmt.Println(core.GetKey("env.abc", 0))
+	fmt.Println(core.GetKey("memory a.c.2.4", 0))
+	fmt.Println(core.GetKey("memory a.b", 0))
+	fmt.Println(core.GetKey("memory a\\.a.c", 0))
+	fmt.Println(core.GetKey("consul test", 0))
+	fmt.Println(core.GetKey("env abc", 0))
 
 	//var t = ads.NewAdsMap(map[string]interface{}{"a": map[string]interface{}{"b": 2, "c": []interface{}{1,2,3}}})
 	//

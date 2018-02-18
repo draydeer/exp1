@@ -8,6 +8,11 @@ type LocalCache interface {
 	GetKey(key string) (LocalCacheKey, bool)
 	SetKey(key string, val ads.AdsNode) LocalCache
 	SetKeyFromRaw(key string, val interface{}) LocalCache
+	SetKeyFromRawWithMapper(
+		key string,
+		val interface{},
+		mapper func(interface{}) (interface{}, error),
+	) (LocalCache, error)
 	HasKey(key string) bool
 }
 
@@ -38,16 +43,41 @@ func (localCache *LocalCacheInstance) SetKey(key string, val ads.AdsNode) LocalC
 }
 
 func (localCache *LocalCacheInstance) SetKeyFromRaw(key string, val interface{}) LocalCache {
-	var v, isPresent = localCache.keys[key]
+	adsNode := ads.Create(val)
+
+	v, isPresent := localCache.keys[key]
 
 	if isPresent {
-		v.Update(ads.Create(val))
+		v.Update(adsNode)
 	} else {
-		localCache.keys[key] = NewCacheKey(key, ads.Create(val))
+		localCache.keys[key] = NewCacheKey(key, adsNode)
 	}
 
 	return localCache
 }
+
+func (localCache *LocalCacheInstance) SetKeyFromRawWithMapper(
+	key string,
+	val interface{},
+	mapper func(interface{}) (interface{}, error),
+) (LocalCache, error) {
+	adsNode, err := ads.CreateWithMapper(val, mapper)
+
+	if err != nil {
+		return nil, err
+	}
+
+	v, isPresent := localCache.keys[key]
+
+	if isPresent {
+		v.Update(adsNode)
+	} else {
+		localCache.keys[key] = NewCacheKey(key, adsNode)
+	}
+
+	return localCache, nil
+}
+
 
 func (localCache *LocalCacheInstance) HasKey(key string) bool {
 	var _, present = localCache.keys[key]
