@@ -41,7 +41,7 @@ func main() {
 	fmt.Println(core.GetKey("memory a.c.2.4", 0))
 	fmt.Println(core.GetKey("memory a.b", 0))
 	fmt.Println(core.GetKey("memory a\\.a.c", 0))
-	fmt.Println(core.GetKey("consul test", 0))
+	fmt.Println(core.GetKey("consul config.ft-dev.application.ft\\.dcache\\.host", 0))
 	fmt.Println(core.GetKey("env abc", 0))
 
 	//var t = ads.NewAdsMap(map[string]interface{}{"a": map[string]interface{}{"b": 2, "c": []interface{}{1,2,3}}})

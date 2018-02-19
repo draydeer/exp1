@@ -2,6 +2,7 @@ package core
 
 import (
 	"errors"
+	"strings"
 
 	"envd/src/drivers"
 	"envd/src/driver_manager"
@@ -42,35 +43,40 @@ func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, erro
 	route, significantKey, rootKeyPrefix, isMatch := core.GetRouter().Test(key)
 
 	if isMatch {
-		kd := route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
-		rk := rootKeyPrefix + kd.RootKey
-		sValue, sIsPresent := core.GetCache().GetKey(rk)
+		driverKeyDescriptor := route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
+		prefixedRootKey := rootKeyPrefix + driverKeyDescriptor.RootKey
+		cValue, cIsPresent := core.GetCache().GetKey(prefixedRootKey)
 
-		if ! sIsPresent {
-			if ! core.lockedKeys.Capture(kd.RootKey) {
+		// cache has no value by prefixed root key
+		if ! cIsPresent {
+
+			// if prefixed root key is already captured stop with circular error
+			if ! core.lockedKeys.Capture(prefixedRootKey) {
 				return nil, errorCircular
 			}
 
-			dValue, dIsPresent := route.GetDriver().GetKey(kd.RootKey)
+			dValue, dIsPresent := route.GetDriver().GetKey(driverKeyDescriptor.RootKey)
 
+			// driver has no value by key
 			if ! dIsPresent {
-				core.lockedKeys.Release(kd.RootKey)
+				core.lockedKeys.Release(prefixedRootKey)
 
 				return def, nil
 			}
 
-			core.lockedKeys.Release(kd.RootKey)
+			// set cache value by prefixed root key resolving references
+			_, err := core.LocalCache.SetKeyFromRawWithMapper(prefixedRootKey, dValue, core.resolve)
 
-			_, err := core.LocalCache.SetKeyFromRawWithMapper(rk, dValue, core.resolve)
+			core.lockedKeys.Release(prefixedRootKey)
 
 			if err != nil {
 				return nil, err
 			}
 
-			sValue, sIsPresent = core.LocalCache.GetKey(rk)
+			cValue, cIsPresent = core.LocalCache.GetKey(prefixedRootKey)
 		}
 
-		return sValue.GetPath(kd.PathKey, def), nil
+		return cValue.GetPath(driverKeyDescriptor.PathKey, def), nil
 	}
 
 	return def, nil
@@ -91,8 +97,46 @@ func (core *CoreInstance) GetCache() local_cache.LocalCache {
 func (core *CoreInstance) resolve(val interface{}) (interface{}, error) {
 	switch val.(type) {
 	case string:
-		if len(val.(string)) > 2 && val.(string)[0: 2] == "$$" {
-			return core.GetKey(val.(string)[2:], nil)
+		str := val.(string)
+
+		for true {
+			ixe := strings.Index(str, "}}")
+			ixs := strings.Index(str, "{{")
+
+			if ixe - ixs > 0 {
+				rep, err := core.GetKey(str[ixs + 2: ixe], nil)
+
+				if err != nil {
+					return nil, err
+				}
+
+				isEntire := ixs == 0 && ixe == len(str) - 2
+
+				switch rep.(type) {
+				case int:
+					if isEntire {
+						return rep, nil
+					}
+
+					str = str[0: ixs] + string(rep.(int)) + str[ixe:]
+
+					continue
+
+				case string:
+					if isEntire {
+						return rep, nil
+					}
+
+					str = str[0: ixs] + rep.(string) + str[ixe:]
+
+					continue
+
+				default:
+					return rep, nil
+				}
+			} else {
+				break
+			}
 		}
 	}
 
