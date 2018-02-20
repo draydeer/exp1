@@ -2,12 +2,12 @@ package main
 
 import (
 	"testing"
-	"envd/src/drivers/memory"
-	"envd/src/drivers"
-	"envd/src/routes"
-	"envd/src/local_cache"
-	"envd/src"
-	"envd/src/lib"
+	"envd/pkg/drivers/memory"
+	"envd/pkg/drivers"
+	"envd/pkg/routes"
+	"envd/pkg/local_cache"
+	"envd/pkg"
+	"envd/pkg/lib"
 	"fmt"
 	//"strings"
 )

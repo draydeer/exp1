@@ -2,13 +2,13 @@ package main
 
 import (
 	"fmt"
-	"envd/src/core"
-	"envd/src/router"
-	"envd/src/drivers/memory"
-	"envd/src/local_cache"
-	"envd/src/drivers/consul"
-	"envd/src/driver_manager"
-	"envd/src/drivers/env"
+	"envd/pkg/core"
+	"envd/pkg/router"
+	"envd/pkg/drivers/memory"
+	"envd/pkg/local_cache"
+	"envd/pkg/drivers/consul"
+	"envd/pkg/driver_manager"
+	"envd/pkg/drivers/env"
 )
 
 func main() {
