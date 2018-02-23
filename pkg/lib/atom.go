@@ -7,7 +7,7 @@ type Atom interface {
 }
 
 type AtomInstance struct {
-	keys map[string]bool
+	atoms map[string]bool
 }
 
 func (atom *AtomInstance) Capture(key string) bool {
@@ -15,19 +15,19 @@ func (atom *AtomInstance) Capture(key string) bool {
 		return false
 	}
 
-	atom.keys[key] = true
+	atom.atoms[key] = true
 
 	return true
 }
 
 func (atom *AtomInstance) IsLocked(key string) bool {
-	_, isPresent := atom.keys[key]
+	_, isPresent := atom.atoms[key]
 
 	return isPresent
 }
 
 func (atom *AtomInstance) Release(key string) Atom {
-	delete(atom.keys, key)
+	delete(atom.atoms, key)
 
 	return atom
 }
