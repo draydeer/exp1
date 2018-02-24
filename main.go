@@ -10,6 +10,7 @@ import (
 	"envd/pkg/driver_manager"
 	"envd/pkg/drivers/environment"
 	"encoding/json"
+	"envd/pkg/server/rest"
 )
 
 func main() {
@@ -33,21 +34,23 @@ func main() {
 
 	var core = core.NewCore(&newd, &newr, &news)
 
-	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory ")
-	core.GetRouter().AddTrimmedPrefixMatch(s2, "consul ")
-	core.GetRouter().AddTrimmedPrefixMatch(s3, "environment ")
+	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory.")
+	core.GetRouter().AddTrimmedPrefixMatch(s2, "consul.")
+	core.GetRouter().AddTrimmedPrefixMatch(s3, "environment.")
 
 	fmt.Println("map:", core)
 
-	fmt.Println(core.GetKey("memory a.c.2.4", 0))
-	fmt.Println(core.GetKey("memory a.b", 0))
-	fmt.Println(core.GetKey("memory a\\.a.c", 0))
-	fmt.Println(core.GetKey("consul config.ft-dev.application.ft\\.dcache\\.host", 0))
-	fmt.Println(core.GetKey("environment abc", 0))
-	a, _ := core.GetKey("consul config", 0)
+	fmt.Println(core.GetKey("memory.a.c.2.4", 0))
+	fmt.Println(core.GetKey("memory.a.b", 0))
+	fmt.Println(core.GetKey("memory.a\\.a.c", 0))
+	fmt.Println(core.GetKey("consul.config.ft-dev.application.ft\\.dcache\\.host", 0))
+	fmt.Println(core.GetKey("environment.abc", 0))
+	a, _ := core.GetKey("memory.a", 0)
 	b, _ := json.Marshal(a)
 
 	fmt.Println(string(b))
+
+	rest.RunServer(core)
 
 	//var t = ads.NewAdsMap(map[string]interface{}{"a": map[string]interface{}{"b": 2, "c": []interface{}{1,2,3}}})
 	//

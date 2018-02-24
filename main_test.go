@@ -3,13 +3,12 @@ package main
 import (
 	"testing"
 	"envd/pkg/drivers/memory"
-	"envd/pkg/drivers"
-	"envd/pkg/routes"
+	"envd/pkg/driver_manager"
+	"envd/pkg/core"
 	"envd/pkg/local_cache"
-	"envd/pkg"
-	"envd/pkg/lib"
+	"envd/pkg/router"
+	//"envd/pkg/lib"
 	"fmt"
-	//"strings"
 )
 
 func BenchmarkSelfConcatOperator1000(b *testing.B) {
@@ -20,21 +19,23 @@ func BenchmarkSelfConcatOperator1000(b *testing.B) {
 		},
 	})
 
-	var newd = drivers.NewDriverManager()
-	var newr = routes.NewRouter()
+	var newd = driver_manager.NewDriverManager()
+	var newr = router.NewRouter()
 	var news = local_cache.NewCache()
 
-	var core = src.NewCore(&newd, &newr, &news)
+	var core = core.NewCore(&newd, &newr, &news)
 
-	core.GetRouter().AddMatchByTrimmedPrefix(&s1, "memory.")
+	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory.")
 
-	var splitter = lib.SplitKeyFn(".")
-	var str = "aaasdf.bf.asdf.casd.fasd.dfasdf.eas.ffadsfa.sdf.gasdf.hfasfa.sdfadsf"
-
-	fmt.Print(splitter(str))
+	//var splitter = lib.SplitKeyFn(".")
+	//var str = "aaasdf.bf.asdf.casd.fasd.dfasdf.eas.ffadsfa.sdf.gasdf.hfasfa.sdfadsf"
+	//
+	//fmt.Print(splitter(str))
 
 	for n := 0; n < b.N; n++ {
-		core.GetKey("memory.a.b", 0)
+		core.GetKey("memory.a.c.2", 0)
 		//splitter(str)
 	}
+
+	fmt.Println(core.GetKey("memory.a.c.2", 0))
 }

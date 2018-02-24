@@ -86,6 +86,24 @@ func (core *CoreInstance) GetKeyOrNil(key string) (interface{}, error) {
 	return core.GetKey(key, nil)
 }
 
+func (core *CoreInstance) GetKeyDescriptor(key string) (local_cache.LocalCacheKey, error) {
+	route, significantKey, rootKeyPrefix, isMatch := core.GetRouter().Test(key)
+
+	if isMatch {
+		driverKeyDescriptor := route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
+		prefixedRootKey := rootKeyPrefix + driverKeyDescriptor.RootKey
+		cValue, cIsPresent := core.GetCache().GetKey(prefixedRootKey)
+
+		if ! cIsPresent {
+			return nil, nil
+		}
+
+		return cValue, nil
+	}
+
+	return nil, nil
+}
+
 func (core *CoreInstance) GetRouter() router.Router {
 	return core.Router
 }

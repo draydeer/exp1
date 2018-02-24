@@ -203,7 +203,7 @@ func NewAdsMapWithMapper(m map[string]interface{}, mapper func(interface{}) (int
 // Ads primitive
 
 type AdsPrimitive struct {
-	Val interface{}
+	Val interface {}
 }
 
 func (adsNode AdsPrimitive) GetIndex(index string) (interface{}, bool) {
@@ -318,16 +318,16 @@ func GetPath(ads AdsNode, path []string, def interface{}) interface{} {
 	return val
 }
 
-//func Set(ads AdsNode, key string, Val interface{}) AdsNode {
+//func Set(ads AdsNode, key string, val interface{}) AdsNode {
 //	if ! ads.IsContainer() {
 //		return ads
 //	}
 //
 //	for _, v := range strings.Split(key, ".") {
-//		var Val, present = ads.GetIndex(v)
+//		var val, present = ads.GetIndex(v)
 //
 //		if present {
-//			ads = Val.(AdsNode)
+//			ads = val.(AdsNode)
 //		} else {
 //			return def
 //		}
