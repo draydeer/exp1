@@ -15,10 +15,10 @@ type AdsNode interface {
 // Ads list
 
 type AdsList struct {
-	Val []interface{} `json`
+	Val []interface{}
 }
 
-func (adsNode AdsList) GetIndex(index string) (interface{}, bool) {
+func (adsNode *AdsList) GetIndex(index string) (interface{}, bool) {
 	var i, err = strconv.Atoi(index)
 
 	if err == nil && i >= 0 && len(adsNode.Val) > i {
@@ -28,21 +28,21 @@ func (adsNode AdsList) GetIndex(index string) (interface{}, bool) {
 	return nil, false
 }
 
-func (adsNode AdsList) GetValue() interface{} {
+func (adsNode *AdsList) GetValue() interface{} {
 	return adsNode.Val
 }
 
-func (adsNode AdsList) HasIndex(index string) bool {
+func (adsNode *AdsList) HasIndex(index string) bool {
 	var i, err = strconv.Atoi(index)
 
 	return err != nil && i >= 0 && len(adsNode.Val) > i
 }
 
-func (adsNode AdsList) IsContainer() bool {
+func (adsNode *AdsList) IsContainer() bool {
 	return true
 }
 
-func NewAdsList(l []interface{}) AdsNode {
+func NewAdsList(l []interface{}) *AdsList {
 	var node = AdsList{make([]interface{}, 0)}
 
 	for _, v := range l {
@@ -50,22 +50,22 @@ func NewAdsList(l []interface{}) AdsNode {
 		case map[string]interface{}:
 			node.Val = append(node.Val, NewAdsMap(v.(map[string]interface{})))
 
-			break;
+			break
 
 		case []interface{}:
 			node.Val = append(node.Val, NewAdsList(v.([]interface{})))
 
-			break;
+			break
 
 		default:
-			node.Val = append(node.Val, AdsPrimitive{v})
+			node.Val = append(node.Val, NewAdsPrimitive(v))
 		}
 	}
 
-	return node
+	return &node
 }
 
-func NewAdsListWithMapper(l []interface{}, mapper func(interface{}) (interface{}, error)) (AdsNode, error) {
+func NewAdsListWithMapper(l []interface{}, mapper func(interface{}) (interface{}, error)) (*AdsList, error) {
 	node := AdsList{make([]interface{}, 0)}
 
 	for _, v := range l {
@@ -99,20 +99,20 @@ func NewAdsListWithMapper(l []interface{}, mapper func(interface{}) (interface{}
 			break;
 
 		default:
-			node.Val = append(node.Val, AdsPrimitive{v})
+			node.Val = append(node.Val, NewAdsPrimitive(v))
 		}
 	}
 
-	return node, nil
+	return &node, nil
 }
 
 // Ads map
 
 type AdsMap struct {
-	Val map[string]interface{} `json:"-"`
+	Val map[string]interface{}
 }
 
-func (adsNode AdsMap) GetIndex(index string) (interface{}, bool) {
+func (adsNode *AdsMap) GetIndex(index string) (interface{}, bool) {
 	var v, present = adsNode.Val[index]
 
 	if present {
@@ -122,21 +122,21 @@ func (adsNode AdsMap) GetIndex(index string) (interface{}, bool) {
 	return nil, false
 }
 
-func (adsNode AdsMap) GetValue() interface{} {
+func (adsNode *AdsMap) GetValue() interface{} {
 	return adsNode.Val
 }
 
-func (adsNode AdsMap) HasIndex(index string) bool {
+func (adsNode *AdsMap) HasIndex(index string) bool {
 	var _, present = adsNode.Val[index]
 
 	return present
 }
 
-func (adsNode AdsMap) IsContainer() bool {
+func (adsNode *AdsMap) IsContainer() bool {
 	return true
 }
 
-func NewAdsMap(m map[string]interface{}) AdsNode {
+func NewAdsMap(m map[string]interface{}) *AdsMap {
 	var node = AdsMap{make(map[string]interface{})}
 
 	for k, v := range m {
@@ -152,14 +152,14 @@ func NewAdsMap(m map[string]interface{}) AdsNode {
 			break;
 
 		default:
-			node.Val[k] = AdsPrimitive{v}
+			node.Val[k] = NewAdsPrimitive(v)
 		}
 	}
 
-	return node
+	return &node
 }
 
-func NewAdsMapWithMapper(m map[string]interface{}, mapper func(interface{}) (interface{}, error)) (AdsNode, error) {
+func NewAdsMapWithMapper(m map[string]interface{}, mapper func(interface{}) (interface{}, error)) (*AdsMap, error) {
 	var node = AdsMap{make(map[string]interface{})}
 
 	for k, v := range m {
@@ -193,11 +193,11 @@ func NewAdsMapWithMapper(m map[string]interface{}, mapper func(interface{}) (int
 			break;
 
 		default:
-			node.Val[k] = AdsPrimitive{v}
+			node.Val[k] = NewAdsPrimitive(v)
 		}
 	}
 
-	return node, nil
+	return &node, nil
 }
 
 // Ads primitive
@@ -206,34 +206,34 @@ type AdsPrimitive struct {
 	Val interface {}
 }
 
-func (adsNode AdsPrimitive) GetIndex(index string) (interface{}, bool) {
+func (adsNode *AdsPrimitive) GetIndex(index string) (interface{}, bool) {
 	return nil, false
 }
 
-func (adsNode AdsPrimitive) GetValue() interface{} {
+func (adsNode *AdsPrimitive) GetValue() interface{} {
 	return adsNode.Val
 }
 
-func (adsNode AdsPrimitive) HasIndex(index string) bool {
+func (adsNode *AdsPrimitive) HasIndex(index string) bool {
 	return false
 }
 
-func (adsNode AdsPrimitive) IsContainer() bool {
+func (adsNode *AdsPrimitive) IsContainer() bool {
 	return false
 }
 
-func NewAdsPrimitive(val interface{}) AdsNode {
-	return AdsPrimitive{val}
+func NewAdsPrimitive(val interface{}) *AdsPrimitive {
+	return &AdsPrimitive{val}
 }
 
-func NewAdsPrimitiveWithMapper(val interface{}, mapper func(interface{}) (interface{}, error)) (AdsNode, error) {
+func NewAdsPrimitiveWithMapper(val interface{}, mapper func(interface{}) (interface{}, error)) (*AdsPrimitive, error) {
 	val, err := mapper(val)
 
 	if err != nil {
 		return nil, err
 	}
 
-	return AdsPrimitive{val}, nil
+	return &AdsPrimitive{val}, nil
 }
 
 //
@@ -247,7 +247,7 @@ func Create(val interface{}) AdsNode {
 		return NewAdsList(val.([]interface{}))
 	}
 
-	return AdsPrimitive{val}
+	return NewAdsPrimitive(val)
 }
 
 func CreateWithMapper(val interface{}, mapper func(interface{}) (interface{}, error)) (AdsNode, error) {
@@ -265,10 +265,6 @@ func CreateWithMapper(val interface{}, mapper func(interface{}) (interface{}, er
 func GetKey(ads AdsNode, key string, def interface{}) interface{} {
 	if ads == nil {
 		panic("ads is nil")
-	}
-
-	if ! ads.IsContainer() {
-		return def
 	}
 
 	for _, v := range strings.Split(key, ".") {
@@ -293,10 +289,6 @@ func GetKey(ads AdsNode, key string, def interface{}) interface{} {
 func GetPath(ads AdsNode, path []string, def interface{}) interface{} {
 	if ads == nil {
 		panic("ads is nil")
-	}
-
-	if ! ads.IsContainer() {
-		return def
 	}
 
 	for _, v := range path {

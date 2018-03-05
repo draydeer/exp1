@@ -8,7 +8,7 @@ import (
 	"envd/pkg/driver_manager"
 	"envd/pkg/lib"
 	"envd/pkg/local_cache"
-	"envd/pkg/router"
+	"envd/pkg/router_manager"
 )
 
 var errorCircular = errors.New("circular error")
@@ -19,7 +19,7 @@ type Core interface {
 	GetDriverManager() driver_manager.DriverManager
 	GetKey(key string, def interface{}) (interface{}, error)
 	GetKeyOrNil(key string) (interface{}, error)
-	GetRouter() router.Router
+	GetRouterManager() router_manager.RouterManager
 
 	resolve(val interface{}) interface{}
 }
@@ -28,7 +28,7 @@ type CoreInstance struct {
 	local_cache.LocalCache
 	driver_manager.DriverManager
 	lockedKeys lib.Atom
-	router.Router
+	router_manager.RouterManager
 }
 
 func (core *CoreInstance) GetDriver(key string) drivers.Driver {
@@ -40,43 +40,41 @@ func (core *CoreInstance) GetDriverManager() driver_manager.DriverManager {
 }
 
 func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, error) {
-	route, significantKey, rootKeyPrefix, isMatch := core.GetRouter().Test(key)
+	router, routerKeyDescriptor := core.GetRouterManager().Test(key)
 
-	if isMatch {
-		driverKeyDescriptor := route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
-		prefixedRootKey := rootKeyPrefix + driverKeyDescriptor.RootKey
-		cValue, cIsPresent := core.GetCache().GetKey(prefixedRootKey)
+	if router != nil {
+		cValue, cIsPresent := core.GetCache().GetKey(routerKeyDescriptor.LocalCacheRootKey)
 
-		// cache has no value by prefixed root key
+		// cache has no value by root key
 		if ! cIsPresent {
 
-			// if prefixed root key is already captured stop with circular error
-			if ! core.lockedKeys.Capture(prefixedRootKey) {
+			// if root key is already captured stop with circular error
+			if ! core.lockedKeys.Capture(routerKeyDescriptor.LocalCacheRootKey) {
 				return nil, errorCircular
 			}
 
-			dValue, dIsPresent := route.GetDriver().GetKey(driverKeyDescriptor.RootKey)
+			dValue, dIsPresent := router.GetDriver().GetKey(routerKeyDescriptor.RootKey)
 
 			// driver has no value by key
 			if ! dIsPresent {
-				core.lockedKeys.Release(prefixedRootKey)
+				core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey)
 
 				return def, nil
 			}
 
 			// set cache value by prefixed root key resolving references
-			_, err := core.LocalCache.SetKeyFromRawWithMapper(prefixedRootKey, dValue, core.resolve)
+			_, err := core.LocalCache.SetKeyFromRawWithMapper(routerKeyDescriptor.LocalCacheRootKey, dValue, core.resolve)
 
-			core.lockedKeys.Release(prefixedRootKey)
+			core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey)
 
 			if err != nil {
 				return nil, err
 			}
 
-			cValue, cIsPresent = core.LocalCache.GetKey(prefixedRootKey)
+			cValue, cIsPresent = core.LocalCache.GetKey(routerKeyDescriptor.LocalCacheRootKey)
 		}
 
-		return cValue.GetPath(driverKeyDescriptor.PathKey, def), nil
+		return cValue.GetPath(routerKeyDescriptor.PathKey, def), nil
 	}
 
 	return def, nil
@@ -87,12 +85,10 @@ func (core *CoreInstance) GetKeyOrNil(key string) (interface{}, error) {
 }
 
 func (core *CoreInstance) GetKeyDescriptor(key string) (local_cache.LocalCacheKey, error) {
-	route, significantKey, rootKeyPrefix, isMatch := core.GetRouter().Test(key)
+	router, routerKeyDescriptor := core.GetRouterManager().Test(key)
 
-	if isMatch {
-		driverKeyDescriptor := route.GetDriver().GetKeyDescriptorFromUniversal(significantKey)
-		prefixedRootKey := rootKeyPrefix + driverKeyDescriptor.RootKey
-		cValue, cIsPresent := core.GetCache().GetKey(prefixedRootKey)
+	if router != nil {
+		cValue, cIsPresent := core.GetCache().GetKey(routerKeyDescriptor.LocalCacheRootKey)
 
 		if ! cIsPresent {
 			return nil, nil
@@ -104,8 +100,8 @@ func (core *CoreInstance) GetKeyDescriptor(key string) (local_cache.LocalCacheKe
 	return nil, nil
 }
 
-func (core *CoreInstance) GetRouter() router.Router {
-	return core.Router
+func (core *CoreInstance) GetRouterManager() router_manager.RouterManager {
+	return core.RouterManager
 }
 
 func (core *CoreInstance) GetCache() local_cache.LocalCache {
@@ -163,7 +159,7 @@ func (core *CoreInstance) resolve(val interface{}) (interface{}, error) {
 
 func NewCore(
 	driverManager driver_manager.DriverManager,
-	router router.Router,
+	router router_manager.RouterManager,
 	cache local_cache.LocalCache,
 ) *CoreInstance {
 	return &CoreInstance{

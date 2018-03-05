@@ -20,13 +20,6 @@ func (driver *EnvironmentDriverInstance) GetKey(key string) (interface{}, bool) 
 	return nil, false
 }
 
-func (driver *EnvironmentDriverInstance) GetKeyDescriptorFromUniversal(key string) drivers.DriverKeyDescriptorInstance {
-	return drivers.DriverKeyDescriptorInstance{
-		[]string{},
-		key,
-	}
-}
-
 func (driver *EnvironmentDriverInstance) HasKey(key string) bool {
 	_, isPresent := os.LookupEnv(key)
 
@@ -37,6 +30,6 @@ func (driver *EnvironmentDriverInstance) IsLocallySignificant() bool {
 	return true
 }
 
-func NewEnvDriver() *EnvironmentDriverInstance {
+func NewEnvironmentDriver() *EnvironmentDriverInstance {
 	return &EnvironmentDriverInstance{}
 }

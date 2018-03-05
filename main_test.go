@@ -6,7 +6,7 @@ import (
 	"envd/pkg/driver_manager"
 	"envd/pkg/core"
 	"envd/pkg/local_cache"
-	"envd/pkg/router"
+	"envd/pkg/router_manager"
 	//"envd/pkg/lib"
 	"fmt"
 )
@@ -20,12 +20,12 @@ func BenchmarkSelfConcatOperator1000(b *testing.B) {
 	})
 
 	var newd = driver_manager.NewDriverManager()
-	var newr = router.NewRouter()
+	var newr = router_manager.NewRouter()
 	var news = local_cache.NewCache()
 
 	var core = core.NewCore(&newd, &newr, &news)
 
-	core.GetRouter().AddTrimmedPrefixMatch(s1, "memory.")
+	core.GetRouterManager().AddTrimmedPrefixMatch(s1, "memory.")
 
 	//var splitter = lib.SplitKeyFn(".")
 	//var str = "aaasdf.bf.asdf.casd.fasd.dfasdf.eas.ffadsfa.sdf.gasdf.hfasfa.sdfadsf"

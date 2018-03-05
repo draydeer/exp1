@@ -3,6 +3,7 @@ package local_cache
 import (
 	"time"
 	"envd/pkg/ads"
+	"sync/atomic"
 )
 
 type LocalCacheKey interface {
@@ -28,13 +29,13 @@ func (localCacheKey *LocalCacheKeyInstance) GetDescriptor() *LocalCacheKeyInstan
 }
 
 func (localCacheKey *LocalCacheKeyInstance) GetKey(key string, def interface{}) interface{} {
-	localCacheKey.SelectCount += 1
+	atomic.AddUint64(&localCacheKey.SelectCount, 1)
 
 	return ads.GetKey(localCacheKey.val, key, def)
 }
 
 func (localCacheKey *LocalCacheKeyInstance) GetPath(path []string, def interface{}) interface{} {
-	localCacheKey.SelectCount += 1
+	atomic.AddUint64(&localCacheKey.SelectCount, 1)
 
 	return ads.GetPath(localCacheKey.val, path, def)
 }

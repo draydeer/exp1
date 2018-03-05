@@ -30,7 +30,7 @@ func (driver *ConsulDriverInstance) GetKey(key string) (interface{}, bool) {
 
 	for _, p := range pairs {
 		curr := &dict
-		keys := strings.Split(p.Key, "/")
+		keys := strings.Split(p.Key[len(key) + 1:], "/")
 
 		for i, key := range keys {
 			if i == len(keys) - 1 {
@@ -50,15 +50,6 @@ func (driver *ConsulDriverInstance) GetKey(key string) (interface{}, bool) {
 	}
 
 	return dict, true
-}
-
-func (driver *ConsulDriverInstance) GetKeyDescriptorFromUniversal(key string) drivers.DriverKeyDescriptorInstance {
-	splitted := split(key)
-
-	return drivers.DriverKeyDescriptorInstance{
-		splitted,
-		splitted[0],
-	}
 }
 
 func (driver *ConsulDriverInstance) HasKey(key string) bool {

@@ -22,15 +22,6 @@ func (driver *MemoryDriverInstance) GetKey(key string) (interface{}, bool) {
 	return nil, false
 }
 
-func (driver *MemoryDriverInstance) GetKeyDescriptorFromUniversal(key string) drivers.DriverKeyDescriptorInstance {
-	splitted := split(key)
-
-	return drivers.DriverKeyDescriptorInstance{
-		splitted,
-		splitted[0],
-	}
-}
-
 func (driver *MemoryDriverInstance) HasKey(key string) bool {
 	var _, isPresent = driver.Keys[key]
 
