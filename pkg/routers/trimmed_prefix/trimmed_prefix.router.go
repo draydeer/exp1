@@ -16,7 +16,8 @@ type TrimmedPrefixRouterInstance struct {
 
 /*
 
-Example:
+Example
+=======
 
 CustomDriver data block:
 	test:
@@ -27,28 +28,30 @@ CustomDriver data block:
 				hello:
 					world: "hello, world!"
 
-1)
+Configuration 1
+---------------
 
 TrimmerPrefix router configuration:
 	Driver: CustomDriver
 	RootKey: "test/key2"
 	TrimmedPrefix: "custom:"
 
-Requested key: "consul:key2key2.hello"
+Requested key: "custom:key2key2.hello"
 
 RouterKeyDescriptorInstance:
 	LocalCacheKey: "custom:test/key2"  <--  by this key data block will be stored locally
 	PathKey: ["key2key2", "hello"]  <--  by this path target value will be searched in data block
 	RootKey: "test/key2"  <--  by this key data block will be requested via driver
 
-2)
+Configuration 2
+---------------
 
 TrimmerPrefix router configuration:
 	Driver: CustomDriver
 	RootKey: ""
 	TrimmedPrefix: "custom:"
 
-Requested key: "consul:test.key2.key2key2.hello"
+Requested key: "custom:test.key2.key2key2.hello"
 
 RouterKeyDescriptorInstance:
 	LocalCacheKey: "custom:test"  <--  by this key data block will be stored locally

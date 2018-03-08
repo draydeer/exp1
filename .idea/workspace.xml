@@ -3,24 +3,11 @@
   <component name="ChangeListManager">
     <list default="true" id="f5f0c35d-a75c-47f4-9cd1-34754dc00739" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/main.go" afterPath="$PROJECT_DIR$/main.go" />
-      <change beforePath="$PROJECT_DIR$/main_test.go" afterPath="$PROJECT_DIR$/main_test.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/ads/ads.go" afterPath="$PROJECT_DIR$/pkg/ads/ads.go" />
       <change beforePath="$PROJECT_DIR$/pkg/core/core.go" afterPath="$PROJECT_DIR$/pkg/core/core.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/cryptors/cryptor.go" afterPath="$PROJECT_DIR$/pkg/cryptors/cryptor.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/consul/consul.driver.go" afterPath="$PROJECT_DIR$/pkg/drivers/consul/consul.driver.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/driver.go" afterPath="$PROJECT_DIR$/pkg/drivers/driver.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/driver_key_descriptor.go" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go" afterPath="$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/memory/memory.driver.go" afterPath="$PROJECT_DIR$/pkg/drivers/memory/memory.driver.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/drivers/null/null.driver.go" afterPath="$PROJECT_DIR$/pkg/drivers/null/null.driver.go" />
+      <change beforePath="$PROJECT_DIR$/pkg/lib/atom.go" afterPath="$PROJECT_DIR$/pkg/lib/atom.go" />
+      <change beforePath="$PROJECT_DIR$/pkg/local_cache/local_cache.go" afterPath="$PROJECT_DIR$/pkg/local_cache/local_cache.go" />
       <change beforePath="$PROJECT_DIR$/pkg/local_cache/local_cache_key.go" afterPath="$PROJECT_DIR$/pkg/local_cache/local_cache_key.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/router/router.go" afterPath="$PROJECT_DIR$/pkg/router_manager/router_manager.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/routes/entire/entire.route.go" afterPath="$PROJECT_DIR$/pkg/routers/entire/entire.router.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/routes/prefix/prefix.route.go" afterPath="$PROJECT_DIR$/pkg/routers/prefix/prefix.router.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/routes/regexp/regexp.route.go" afterPath="$PROJECT_DIR$/pkg/routers/regexp/regexp.router.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/routes/route.go" afterPath="$PROJECT_DIR$/pkg/routers/router.go" />
-      <change beforePath="$PROJECT_DIR$/pkg/routes/trimmed_prefix/trimmed_prefix.route.go" afterPath="$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go" />
+      <change beforePath="$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go" afterPath="$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -31,54 +18,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="trimmed_prefix.router.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go">
+      <file leaf-file-name="core.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/core/core.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="372">
-              <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
+            <state relative-caret-position="308">
+              <caret line="173" column="55" lean-forward="false" selection-start-line="173" selection-start-column="55" selection-end-line="173" selection-end-column="55" />
               <folding>
-                <element signature="e#24#82#0" expanded="true" />
+                <element signature="e#14#160#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="environment.driver.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go">
+      <file leaf-file-name="ads.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/ads/ads.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="169">
-              <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+            <state relative-caret-position="200">
+              <caret line="292" column="0" lean-forward="true" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="memory.driver.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/drivers/memory/memory.driver.go">
+      <file leaf-file-name="local_cache.go" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+            <state relative-caret-position="0">
+              <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="entire.router.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/routers/entire/entire.router.go">
+      <file leaf-file-name="local_cache_key.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache_key.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="29" column="36" lean-forward="false" selection-start-line="29" selection-start-column="36" selection-end-line="29" selection-end-column="36" />
+            <state relative-caret-position="358">
+              <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="router_key_descriptor.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/routers/router_key_descriptor.go">
+      <file leaf-file-name="atom.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/lib/atom.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="30">
-              <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-              <folding />
+            <state relative-caret-position="555">
+              <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+              <folding>
+                <element signature="e#13#46#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -93,43 +82,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="cryptor.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/cryptors/cryptor.go">
+      <file leaf-file-name="split.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/lib/split.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
-              <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+            <state relative-caret-position="-152">
+              <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="null.driver.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/drivers/null/null.driver.go">
+      <file leaf-file-name="trimmed_prefix.router.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15">
-              <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-              <folding>
-                <element signature="e#14#39#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ads.go" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/pkg/ads/ads.go">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-182">
-              <caret line="292" column="0" lean-forward="true" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+            <state relative-caret-position="792">
+              <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mongodb.driver.go" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/pkg/drivers/mongodb/mongodb.driver.go">
+      <file leaf-file-name="router_manager.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/router_manager/router_manager.go">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+            <state relative-caret-position="-857">
+              <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="rest.server.go" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/pkg/server/rest/rest.server.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="230">
+              <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -171,6 +158,7 @@
       <find>RouteFullMatchInstance</find>
       <find>MemoryDriverInstance</find>
       <find>IsIterable</find>
+      <find>Update</find>
     </findStrings>
     <replaceStrings>
       <replace>StorageRootKey</replace>
@@ -203,6 +191,7 @@
       <dir>$PROJECT_DIR$/src/core</dir>
       <dir>$PROJECT_DIR$/src</dir>
       <dir>$PROJECT_DIR$</dir>
+      <dir>$PROJECT_DIR$/pkg</dir>
     </dirStrings>
   </component>
   <component name="GOROOT" path="/usr/local/Cellar/go/1.9.4/libexec" />
@@ -212,8 +201,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/lib/atom.go" />
-        <option value="$PROJECT_DIR$/src/lib/split.go" />
         <option value="$PROJECT_DIR$/../github.com/hashicorp/consul/api/api.go" />
         <option value="$PROJECT_DIR$/src/cache/local_cache.go" />
         <option value="$PROJECT_DIR$/src/router/route.go" />
@@ -238,7 +225,6 @@
         <option value="$PROJECT_DIR$/src/core/core.go" />
         <option value="$PROJECT_DIR$/src/ads/ads.go" />
         <option value="$PROJECT_DIR$/main_test.go" />
-        <option value="$PROJECT_DIR$/pkg/lib/atom.go" />
         <option value="$PROJECT_DIR$/pkg/server/rest/rest.server.go" />
         <option value="$PROJECT_DIR$/pkg/localCache/local_cache_key.go" />
         <option value="$PROJECT_DIR$/pkg/routes/router_key_descriptor.go" />
@@ -251,18 +237,21 @@
         <option value="$PROJECT_DIR$/pkg/routers/entire/entire.router.go" />
         <option value="$PROJECT_DIR$/pkg/routers/prefix/prefix.router.go" />
         <option value="$PROJECT_DIR$/pkg/router_manager/router_manager.go" />
-        <option value="$PROJECT_DIR$/main.go" />
-        <option value="$PROJECT_DIR$/pkg/local_cache/local_cache_key.go" />
         <option value="$PROJECT_DIR$/pkg/drivers/driver.go" />
         <option value="$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go" />
         <option value="$PROJECT_DIR$/pkg/drivers/consul/consul.driver.go" />
         <option value="$PROJECT_DIR$/pkg/drivers/memory/memory.driver.go" />
         <option value="$PROJECT_DIR$/pkg/drivers/null/null.driver.go" />
         <option value="$PROJECT_DIR$/pkg/cryptors/cryptor.go" />
-        <option value="$PROJECT_DIR$/pkg/core/core.go" />
         <option value="$PROJECT_DIR$/pkg/routers/router_key_descriptor.go" />
-        <option value="$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go" />
         <option value="$PROJECT_DIR$/pkg/ads/ads.go" />
+        <option value="$PROJECT_DIR$/main.go" />
+        <option value="$PROJECT_DIR$/pkg/driver_manager/driver_manager.go" />
+        <option value="$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go" />
+        <option value="$PROJECT_DIR$/pkg/lib/atom.go" />
+        <option value="$PROJECT_DIR$/pkg/core/core.go" />
+        <option value="$PROJECT_DIR$/pkg/local_cache/local_cache_key.go" />
+        <option value="$PROJECT_DIR$/pkg/local_cache/local_cache.go" />
       </list>
     </option>
   </component>
@@ -273,10 +262,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="1">
-    <option name="x" value="20" />
-    <option name="y" value="25" />
+    <option name="x" value="25" />
+    <option name="y" value="32" />
     <option name="width" value="1400" />
-    <option name="height" value="825" />
+    <option name="height" value="817" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
@@ -462,8 +451,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -475,6 +464,7 @@
     <property name="configurable.Project.GOPATH.is.expanded" value="true" />
     <property name="configurable.Module.GOPATH.is.expanded" value="false" />
     <property name="restartRequiresConfirmation" value="false" />
+    <property name="SearchEverywhereHistoryKey" value="&#9;FILE&#9;file:///Users/nickolay/projects/src/envd/pkg/routers/router_key_descriptor.go" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -544,20 +534,20 @@
     <option name="remove_strategy" value="false" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="20" y="25" width="1400" height="825" extended-state="1" />
+    <frame x="25" y="32" width="1400" height="817" extended-state="1" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.26141384" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27393225" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30273974" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32739726" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30136988" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4082192" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.31440443" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4082192" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -579,9 +569,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/routes/const.go" />
-    <entry file="file://$PROJECT_DIR$/src/routes/route.go" />
-    <entry file="file://$PROJECT_DIR$/src/routes/prefix/prefix.route.go" />
     <entry file="file://$PROJECT_DIR$/src/routes/regexp/regexp.route.go" />
     <entry file="file://$PROJECT_DIR$/src/routes/trimmed_prefix/trimmed_prefix.route.go" />
     <entry file="file://$PROJECT_DIR$/src/drivers/driver_key_descriptor.go" />
@@ -604,9 +591,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="487">
           <caret line="41" column="0" lean-forward="true" selection-start-line="41" selection-start-column="0" selection-end-line="41" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#182#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -615,7 +599,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="154">
           <caret line="158" column="5" lean-forward="false" selection-start-line="158" selection-start-column="5" selection-end-line="158" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -626,104 +609,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/driver_manager/driver_manager.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="0" lean-forward="true" selection-start-line="26" selection-start-column="0" selection-end-line="26" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/lib/split.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/driver_key_descriptor.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="0" lean-forward="true" selection-start-line="6" selection-start-column="0" selection-end-line="6" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/routers/prefix/prefix.router.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
-          <folding>
-            <element signature="e#16#74#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/routers/regexp/regexp.router.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
-          <folding>
-            <element signature="e#16#46#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/router_manager/router_manager.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="233">
-          <caret line="35" column="0" lean-forward="true" selection-start-line="35" selection-start-column="0" selection-end-line="35" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#255#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-752">
-          <caret line="17" column="0" lean-forward="true" selection-start-line="17" selection-start-column="0" selection-end-line="17" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache_key.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/driver_key_descriptor.go" />
     <entry file="file://$PROJECT_DIR$/pkg/drivers/driver.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
           <caret line="3" column="42" lean-forward="false" selection-start-line="3" selection-start-column="42" selection-end-line="3" selection-end-column="42" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/consul/consul.driver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="16" column="0" lean-forward="true" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/file/file.driver.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -731,30 +621,72 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/cryptors/cryptor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="0" lean-forward="false" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/null/null.driver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/mongodb/mongodb.driver.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/routers/router_key_descriptor.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="0" lean-forward="true" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../github.com/hashicorp/consul/vendor/github.com/golang/protobuf/proto/clone.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="161">
+          <caret line="91" column="17" lean-forward="false" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/driver_manager/driver_manager.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="6" column="26" lean-forward="false" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/lib/atom.go">
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/sync/atomic/doc.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="593">
-          <caret line="55" column="0" lean-forward="true" selection-start-line="55" selection-start-column="0" selection-end-line="55" selection-end-column="0" />
+        <state relative-caret-position="418">
+          <caret line="82" column="5" lean-forward="false" selection-start-line="82" selection-start-column="5" selection-end-line="82" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/server/rest/rest.server.go">
+    <entry file="file://$PROJECT_DIR$/pkg/routers/regexp/regexp.router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="43">
-          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
+        <state relative-caret-position="180">
+          <caret line="14" column="0" lean-forward="false" selection-start-line="14" selection-start-column="0" selection-end-line="14" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/core/core.go">
+    <entry file="file://$PROJECT_DIR$/pkg/routers/prefix/prefix.router.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="123">
-          <caret line="41" column="26" lean-forward="false" selection-start-line="41" selection-start-column="26" selection-end-line="41" selection-end-column="26" />
+        <state relative-caret-position="390">
+          <caret line="31" column="36" lean-forward="false" selection-start-line="31" selection-start-column="36" selection-end-line="31" selection-end-column="36" />
           <folding />
         </state>
       </provider>
@@ -767,51 +699,39 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/routers/router.go">
+    <entry file="file:///usr/local/Cellar/go/1.9.4/libexec/src/sync/mutex.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+        <state relative-caret-position="-1785">
+          <caret line="24" column="5" lean-forward="false" selection-start-line="24" selection-start-column="5" selection-end-line="24" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/routers/router_key_descriptor.go">
+    <entry file="file://$PROJECT_DIR$/main.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="0" lean-forward="false" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state relative-caret-position="358">
+          <caret line="59" column="0" lean-forward="true" selection-start-line="59" selection-start-column="0" selection-end-line="59" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go">
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/consul/consul.driver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="372">
-          <caret line="81" column="0" lean-forward="true" selection-start-line="81" selection-start-column="0" selection-end-line="81" selection-end-column="0" />
-          <folding>
-            <element signature="e#24#82#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/cryptors/cryptor.go">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="0" lean-forward="true" selection-start-line="9" selection-start-column="0" selection-end-line="9" selection-end-column="0" />
+        <state relative-caret-position="358">
+          <caret line="69" column="0" lean-forward="true" selection-start-line="69" selection-start-column="0" selection-end-line="69" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/null/null.driver.go">
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="1" column="0" lean-forward="true" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding>
-            <element signature="e#14#39#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="240">
+          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/mongodb/mongodb.driver.go">
+    <entry file="file://$PROJECT_DIR$/pkg/drivers/file/file.driver.go">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="225">
           <caret line="15" column="0" lean-forward="true" selection-start-line="15" selection-start-column="0" selection-end-line="15" selection-end-column="0" />
@@ -821,24 +741,92 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/drivers/memory/memory.driver.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="22" column="1" lean-forward="false" selection-start-line="22" selection-start-column="1" selection-end-line="22" selection-end-column="1" />
+        <state relative-caret-position="358">
+          <caret line="37" column="0" lean-forward="true" selection-start-line="37" selection-start-column="0" selection-end-line="37" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/pkg/drivers/environment/environment.driver.go">
+    <entry file="file://$PROJECT_DIR$/pkg/server/rest/rest.server.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="169">
-          <caret line="20" column="1" lean-forward="false" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
+        <state relative-caret-position="230">
+          <caret line="22" column="9" lean-forward="true" selection-start-line="22" selection-start-column="9" selection-end-line="22" selection-end-column="9" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/router_manager/router_manager.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-857">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/lib/split.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-152">
+          <caret line="7" column="33" lean-forward="true" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/routers/trimmed_prefix/trimmed_prefix.router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="84" column="0" lean-forward="true" selection-start-line="84" selection-start-column="0" selection-end-line="84" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/lib/atom.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="555">
+          <caret line="80" column="0" lean-forward="true" selection-start-line="80" selection-start-column="0" selection-end-line="80" selection-end-column="0" />
+          <folding>
+            <element signature="e#13#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/routers/router.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/core/core.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="308">
+          <caret line="173" column="55" lean-forward="false" selection-start-line="173" selection-start-column="55" selection-end-line="173" selection-end-column="55" />
+          <folding>
+            <element signature="e#14#160#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/pkg/ads/ads.go">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-182">
+        <state relative-caret-position="200">
           <caret line="292" column="0" lean-forward="true" selection-start-line="292" selection-start-column="0" selection-end-line="292" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache_key.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="358">
+          <caret line="64" column="0" lean-forward="true" selection-start-line="64" selection-start-column="0" selection-end-line="64" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pkg/local_cache/local_cache.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="19" column="32" lean-forward="true" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
           <folding />
         </state>
       </provider>

@@ -10,7 +10,7 @@ type LocalCacheKey interface {
 	GetDescriptor() *LocalCacheKeyInstance
 	GetKey(key string, def interface{}) interface{}
 	GetPath(path []string, def interface{}) interface{}
-	Update(val ads.AdsNode) LocalCacheKey
+	Upd(val ads.AdsNode) LocalCacheKey
 }
 
 type LocalCacheKeyInstance struct {
@@ -40,7 +40,7 @@ func (localCacheKey *LocalCacheKeyInstance) GetPath(path []string, def interface
 	return ads.GetPath(localCacheKey.val, path, def)
 }
 
-func (localCacheKey *LocalCacheKeyInstance) Update(val ads.AdsNode) LocalCacheKey {
+func (localCacheKey *LocalCacheKeyInstance) Upd(val ads.AdsNode) LocalCacheKey {
 	localCacheKey.val = val
 	localCacheKey.UpdateCount += 1
 	localCacheKey.UpdatedAt = time.Now().UnixNano()
@@ -58,7 +58,7 @@ func NewCacheKey(key string, val ads.AdsNode) *LocalCacheKeyInstance {
 		UpdatedAt: 0,
 	}
 
-	localCacheKey.Update(val)
+	localCacheKey.Upd(val)
 
 	return &localCacheKey
 }

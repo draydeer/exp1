@@ -20,23 +20,24 @@ type Core interface {
 	GetKey(key string, def interface{}) (interface{}, error)
 	GetKeyOrNil(key string) (interface{}, error)
 	GetRouterManager() router_manager.RouterManager
+	UpdKey(key string) (interface{}, error)
 
-	resolve(val interface{}) interface{}
+	updateBlockReferences(val interface{}) interface{}
 }
 
 type CoreInstance struct {
-	local_cache.LocalCache
-	driver_manager.DriverManager
-	lockedKeys lib.Atom
-	router_manager.RouterManager
+	DriverManager *driver_manager.DriverManager
+	LocalCache *local_cache.LocalCache
+	RouterManager *router_manager.RouterManager
+	lockedKeys *lib.AtomInstance
 }
 
 func (core *CoreInstance) GetDriver(key string) drivers.Driver {
-	return core.DriverManager.GetDriver(key)
+	return (*core.DriverManager).GetDriver(key)
 }
 
 func (core *CoreInstance) GetDriverManager() driver_manager.DriverManager {
-	return core.DriverManager
+	return *core.DriverManager
 }
 
 func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, error) {
@@ -47,31 +48,44 @@ func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, erro
 
 		// cache has no value by root key
 		if ! cIsPresent {
+			transactionId := lib.NewTransactionId()
 
-			// if root key is already captured stop with circular error
-			if ! core.lockedKeys.Capture(routerKeyDescriptor.LocalCacheRootKey) {
+			// if root key is already captured by same transaction then stop with circular error
+			if ! core.lockedKeys.Capture(routerKeyDescriptor.LocalCacheRootKey, transactionId) {
 				return nil, errorCircular
 			}
 
-			dValue, dIsPresent := router.GetDriver().GetKey(routerKeyDescriptor.RootKey)
+			cValue, cIsPresent = core.GetCache().GetKey(routerKeyDescriptor.LocalCacheRootKey)
 
-			// driver has no value by key
-			if ! dIsPresent {
-				core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey)
+			if ! cIsPresent {
+				dValue, dIsPresent := router.GetDriver().GetKey(routerKeyDescriptor.RootKey)
 
-				return def, nil
+				// driver has no value by key
+				if ! dIsPresent {
+					core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey, transactionId)
+
+					return def, nil
+				}
+
+				// set cache value by prefixed root key resolving references
+				_, err := core.GetCache().SetKeyFromRawWithMapper(
+					routerKeyDescriptor.LocalCacheRootKey,
+					dValue,
+					func (val interface{}) (interface{}, error) {
+						return core.updateBlockReferences(val)
+					},
+				)
+
+				core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey, transactionId)
+
+				if err != nil {
+					return nil, err
+				}
+
+				cValue, cIsPresent = core.GetCache().GetKey(routerKeyDescriptor.LocalCacheRootKey)
+			} else {
+				core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey, transactionId)
 			}
-
-			// set cache value by prefixed root key resolving references
-			_, err := core.LocalCache.SetKeyFromRawWithMapper(routerKeyDescriptor.LocalCacheRootKey, dValue, core.resolve)
-
-			core.lockedKeys.Release(routerKeyDescriptor.LocalCacheRootKey)
-
-			if err != nil {
-				return nil, err
-			}
-
-			cValue, cIsPresent = core.LocalCache.GetKey(routerKeyDescriptor.LocalCacheRootKey)
 		}
 
 		return cValue.GetPath(routerKeyDescriptor.PathKey, def), nil
@@ -101,14 +115,14 @@ func (core *CoreInstance) GetKeyDescriptor(key string) (local_cache.LocalCacheKe
 }
 
 func (core *CoreInstance) GetRouterManager() router_manager.RouterManager {
-	return core.RouterManager
+	return *core.RouterManager
 }
 
 func (core *CoreInstance) GetCache() local_cache.LocalCache {
-	return core.LocalCache
+	return *core.LocalCache
 }
 
-func (core *CoreInstance) resolve(val interface{}) (interface{}, error) {
+func (core *CoreInstance) updateBlockReferences(val interface{}) (interface{}, error) {
 	switch val.(type) {
 	case string:
 		str := val.(string)
@@ -157,15 +171,19 @@ func (core *CoreInstance) resolve(val interface{}) (interface{}, error) {
 	return val, nil
 }
 
+func (core *Core) UpdKey(key string) (interface{}, bool) {
+
+}
+
 func NewCore(
 	driverManager driver_manager.DriverManager,
 	router router_manager.RouterManager,
 	cache local_cache.LocalCache,
 ) *CoreInstance {
 	return &CoreInstance{
-		cache,
-		driverManager,
-		lib.NewAtom(),
-		router,
+		DriverManager: &driverManager,
+		LocalCache: &cache,
+		RouterManager: &router,
+		lockedKeys: lib.NewAtom(),
 	}
 }

@@ -13,11 +13,18 @@ type LocalCache interface {
 		val interface{},
 		mapper func(interface{}) (interface{}, error),
 	) (LocalCache, error)
+	DelKey(key string) LocalCache
 	HasKey(key string) bool
 }
 
 type LocalCacheInstance struct {
 	keys map[string]LocalCacheKey
+}
+
+func (localCache *LocalCacheInstance) DelKey(key string) LocalCache {
+	delete(localCache.keys, key)
+
+	return localCache
 }
 
 func (localCache *LocalCacheInstance) GetKey(key string) (LocalCacheKey, bool) {
@@ -34,7 +41,7 @@ func (localCache *LocalCacheInstance) SetKey(key string, val ads.AdsNode) LocalC
 	var v, isPresent = localCache.keys[key]
 
 	if isPresent {
-		v.Update(val)
+		v.Upd(val)
 	} else {
 		localCache.keys[key] = NewCacheKey(key, val)
 	}
@@ -48,7 +55,7 @@ func (localCache *LocalCacheInstance) SetKeyFromRaw(key string, val interface{})
 	v, isPresent := localCache.keys[key]
 
 	if isPresent {
-		v.Update(adsNode)
+		v.Upd(adsNode)
 	} else {
 		localCache.keys[key] = NewCacheKey(key, adsNode)
 	}
@@ -70,7 +77,7 @@ func (localCache *LocalCacheInstance) SetKeyFromRawWithMapper(
 	v, isPresent := localCache.keys[key]
 
 	if isPresent {
-		v.Update(adsNode)
+		v.Upd(adsNode)
 	} else {
 		localCache.keys[key] = NewCacheKey(key, adsNode)
 	}
