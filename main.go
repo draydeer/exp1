@@ -18,10 +18,17 @@ func main() {
 		"a": map[string]interface{}{
 			"b": 2,
 			"c": []interface{}{1,2,3},
+			"d": map[string]interface{}{},
 		},
 		"a.a": map[string]interface{}{
 			"b": 3,
 			"c": []interface{}{4,5,6},
+			"d": "{{memory:a.d}} {{memory.a.b}}",
+		},
+		"b": map[string]interface{}{
+			"b": "{{memory:a.b}} {{memory:a.c.1}}",
+			"c": []interface{}{4,5,6},
+			"d": "{{memory:a.c.0}}",
 		},
 	})
 

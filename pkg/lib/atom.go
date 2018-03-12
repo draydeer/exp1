@@ -16,7 +16,7 @@ type Atom interface {
 type AtomTransactionInstance struct {
 	sync.Mutex
 
-	TransactionId uint64
+	Id uint64
 }
 
 type AtomInstance struct {
@@ -29,20 +29,20 @@ func (atom *AtomInstance) Capture(key string, transactionId uint64) bool {
 	atom.Lock()
 
 	if transaction, isPresent := atom.Atoms[key]; isPresent {
-		if transaction.TransactionId == transactionId {
+		if transaction.Id == transactionId {
 			atom.Unlock()
 
 			return false
 		}
 	} else {
-		atom.Atoms[key] = &AtomTransactionInstance{TransactionId: transactionId}
+		atom.Atoms[key] = &AtomTransactionInstance{Id: transactionId}
 	}
 
 	atom.Unlock()
 
 	atom.Atoms[key].Lock()
 
-	atom.Atoms[key].TransactionId = transactionId
+	atom.Atoms[key].Id = transactionId
 
 	return true
 }
@@ -52,7 +52,7 @@ func (atom *AtomInstance) IsCaptured(key string, transactionId uint64) bool {
 
 	atom.Lock()
 
-	if _, isPresent := atom.Atoms[key]; isPresent {
+	if transaction, isPresent := atom.Atoms[key]; isPresent && transaction.Id == transactionId {
 		return true
 	}
 
@@ -64,7 +64,7 @@ func (atom *AtomInstance) Release(key string, transactionId uint64) Atom {
 
 	atom.Lock()
 
-	if _, isPresent := atom.Atoms[key]; isPresent {
+	if transaction, isPresent := atom.Atoms[key]; isPresent && transaction.Id == transactionId {
 		atom.Atoms[key].Unlock()
 	}
 

@@ -26,7 +26,7 @@ func (driver *EnvironmentDriverInstance) HasKey(key string) bool {
 	return isPresent
 }
 
-func (driver *EnvironmentDriverInstance) IsLocallySignificant() bool {
+func (driver *EnvironmentDriverInstance) IsClientSignificant() bool {
 	return true
 }
 

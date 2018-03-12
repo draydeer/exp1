@@ -2,6 +2,7 @@ package core
 
 import (
 	"errors"
+	"strconv"
 	"strings"
 
 	"envd/pkg/drivers"
@@ -19,8 +20,9 @@ type Core interface {
 	GetDriverManager() driver_manager.DriverManager
 	GetKey(key string, def interface{}) (interface{}, error)
 	GetKeyOrNil(key string) (interface{}, error)
+	GetKeyWithTransactionId(key string, def interface{}, transactionId uint64) (interface{}, error)
 	GetRouterManager() router_manager.RouterManager
-	UpdKey(key string) (interface{}, error)
+	//UpdKey(key string) (interface{}, error)
 
 	updateBlockReferences(val interface{}) interface{}
 }
@@ -41,6 +43,18 @@ func (core *CoreInstance) GetDriverManager() driver_manager.DriverManager {
 }
 
 func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, error) {
+	return core.GetKeyWithTransactionId(key, def, lib.NewTransactionId())
+}
+
+func (core *CoreInstance) GetKeyOrNil(key string) (interface{}, error) {
+	return core.GetKeyWithTransactionId(key, nil, lib.NewTransactionId())
+}
+
+func (core *CoreInstance) GetKeyWithTransactionId(
+	key string,
+	def interface{},
+	transactionId uint64,
+) (interface{}, error) {
 	router, routerKeyDescriptor := core.GetRouterManager().Test(key)
 
 	if router != nil {
@@ -48,7 +62,6 @@ func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, erro
 
 		// cache has no value by root key
 		if ! cIsPresent {
-			transactionId := lib.NewTransactionId()
 
 			// if root key is already captured by same transaction then stop with circular error
 			if ! core.lockedKeys.Capture(routerKeyDescriptor.LocalCacheRootKey, transactionId) {
@@ -72,7 +85,7 @@ func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, erro
 					routerKeyDescriptor.LocalCacheRootKey,
 					dValue,
 					func (val interface{}) (interface{}, error) {
-						return core.updateBlockReferences(val)
+						return core.updateBlockReferences(val, transactionId)
 					},
 				)
 
@@ -92,10 +105,6 @@ func (core *CoreInstance) GetKey(key string, def interface{}) (interface{}, erro
 	}
 
 	return def, nil
-}
-
-func (core *CoreInstance) GetKeyOrNil(key string) (interface{}, error) {
-	return core.GetKey(key, nil)
 }
 
 func (core *CoreInstance) GetKeyDescriptor(key string) (local_cache.LocalCacheKey, error) {
@@ -122,7 +131,7 @@ func (core *CoreInstance) GetCache() local_cache.LocalCache {
 	return *core.LocalCache
 }
 
-func (core *CoreInstance) updateBlockReferences(val interface{}) (interface{}, error) {
+func (core *CoreInstance) updateBlockReferences(val interface{}, transactionId uint64) (interface{}, error) {
 	switch val.(type) {
 	case string:
 		str := val.(string)
@@ -132,38 +141,40 @@ func (core *CoreInstance) updateBlockReferences(val interface{}) (interface{}, e
 			ixs := strings.Index(str, "{{")
 
 			if ixe - ixs > 0 {
-				rep, err := core.GetKey(str[ixs + 2: ixe], nil)
+				key := str[ixs + 2: ixe]
+				rep, err := core.GetKeyWithTransactionId(key, nil, transactionId)
 
 				if err != nil {
 					return nil, err
 				}
 
-				isEntire := ixs == 0 && ixe == len(str) - 2
+				// reference taking entire line should be replaced to referenced value
+				if ixs == 0 && ixe == len(str) - 2 {
+					return rep, nil
+				}
 
+				// try to replace reference to string representation of referenced value
 				switch rep.(type) {
-				case int:
-					if isEntire {
-						return rep, nil
-					}
+				case float64:
+					str = str[0: ixs] + strconv.FormatFloat(rep.(float64), 'E', -1, 32) + str[ixe + 2:]
 
-					str = str[0: ixs] + string(rep.(int)) + str[ixe:]
+					continue
+
+				case int:
+					str = str[0: ixs] + strconv.Itoa(rep.(int)) + str[ixe + 2:]
 
 					continue
 
 				case string:
-					if isEntire {
-						return rep, nil
-					}
-
-					str = str[0: ixs] + rep.(string) + str[ixe:]
+					str = str[0: ixs] + rep.(string) + str[ixe + 2:]
 
 					continue
 
 				default:
-					return rep, nil
+					return nil, nil
 				}
 			} else {
-				break
+				return str, nil
 			}
 		}
 	}
@@ -171,9 +182,9 @@ func (core *CoreInstance) updateBlockReferences(val interface{}) (interface{}, e
 	return val, nil
 }
 
-func (core *Core) UpdKey(key string) (interface{}, bool) {
-
-}
+//func (core *Core) UpdKey(key string) (interface{}, bool) {
+//
+//}
 
 func NewCore(
 	driverManager driver_manager.DriverManager,

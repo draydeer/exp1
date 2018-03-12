@@ -1,11 +1,6 @@
 package memory
 
-import (
-	"envd/pkg/drivers"
-	"envd/pkg/lib"
-)
-
-var split = lib.SplitKeyFn(".")
+import "envd/pkg/drivers"
 
 type MemoryDriverInstance struct {
 	drivers.DriverInstance
@@ -16,7 +11,7 @@ func (driver *MemoryDriverInstance) GetKey(key string) (interface{}, bool) {
 	var _, isPresent = driver.Keys[key]
 
 	if isPresent {
-		return driver.Keys, true
+		return driver.Keys[key], true
 	}
 
 	return nil, false
@@ -27,6 +22,11 @@ func (driver *MemoryDriverInstance) HasKey(key string) bool {
 
 	return isPresent
 }
+
+func (driver *MemoryDriverInstance) IsConstant() bool {
+	return true
+}
+
 
 func NewMemoryDriver() *MemoryDriverInstance {
 	return &MemoryDriverInstance{}
